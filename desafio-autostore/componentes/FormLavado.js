@@ -4,8 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 import Factura from './Facturacion';
 
-
-
 const CarWashForm = ({ onSubmit }) => {
   const [customerName, setCustomerName] = useState('');
   const [vehicleType, setVehicleType] = useState('Motocicleta');
@@ -18,9 +16,8 @@ const CarWashForm = ({ onSubmit }) => {
 
   const isNameValid = /^[a-zA-Z\s]*$/.test(customerName);
   const isPlateValid = /^[a-zA-Z]{1,2}\d{6}$/.test(vehiclePlate);
-
   const calculatePrice = () => {
-    // Define the price for each combination of vehicle type and service type
+
     const prices = {
       'Lavado Basico': {
         Motocicleta: 2.0,
@@ -87,17 +84,17 @@ const CarWashForm = ({ onSubmit }) => {
     };
   
     try {
-      // Obtén los datos existentes de AsyncStorage
+  
       const existingData = await AsyncStorage.getItem('carWashData');
       const parsedData = existingData ? JSON.parse(existingData) : [];
   
-      // Agrega el nuevo cliente a la lista
+
       const updatedData = [...parsedData, formData];
   
-      // Guarda la lista actualizada en AsyncStorage
+   
       await AsyncStorage.setItem('carWashData', JSON.stringify(updatedData));
   
-      // Limpia el formulario
+
       setCustomerName('');
       setVehicleType('Motocicleta');
       setServiceType('Lavado Basico');
@@ -149,7 +146,7 @@ const CarWashForm = ({ onSubmit }) => {
         style={styles.input}
         value={vehiclePlate}
         onChangeText={text => {
-          // Limitar a un máximo de 8 caracteres
+         
           if (text.length <= 8) {
             setVehiclePlate(text);
           }
